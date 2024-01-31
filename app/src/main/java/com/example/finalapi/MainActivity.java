@@ -1,10 +1,8 @@
 package com.example.finalapi;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.widget.TextView;
-
 
 import java.util.List;
 
@@ -23,36 +21,44 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         texto = findViewById(R.id.tv_result);
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://jsonplaceholder.typicode.com/")
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://newsapi.org/v2/")  // URL
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        NewsApi jasonPlaceApi = retrofit.create(NewsApi.class);
+        NewsApi newsApi = retrofit.create(NewsApi.class);
 
-        Call<List<Post>> posts = jasonPlaceApi.getPosts();
+        String apiKey = "43e06f4cb44f47a29383d7f97765b0bb"; //KEY
+        Call<com.example.finalapi.Response> newsCall = newsApi.getTopHeadlines(apiKey);
 
-        posts.enqueue(new Callback<List<Post>>() {
+        newsCall.enqueue(new Callback<Response>() {
             @Override
-            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
-                if(!response.isSuccessful()){
-                    texto.setText("Problemas, codigo http: " +response.code());
+            public void onResponse(Call<Response> call, Response<Response> response) {
+                if (!response.isSuccessful()) {
+                    texto.setText("Problemas, código HTTP: " + response.code());
                     return;
                 }
-                List<Post> body = response.body();
-                for (Post post: body){
-                    String txt = "";
-                    txt += "ID: " + post.getId() + "\n";
-                    txt += "User ID: " + post.getUserId() + "\n";
-                    txt += "Title: " + post.getTitle() + "\n";
-                    txt += "Body: " + post.getBody() + "\n";
 
-                    texto.setText(txt);
+                Response newsResponse = response.body();
+                List<Article> articles = newsResponse.getArticles();
+
+                StringBuilder txt = new StringBuilder();
+                for (Article article : articles) {
+                    txt.append("Source: ").append(article.getSource().getName()).append("\n");
+                    txt.append("Author: ").append(article.getAuthor()).append("\n");
+                    txt.append("Title: ").append(article.getTitle()).append("\n");
+                    txt.append("Description: ").append(article.getDescription()).append("\n");
+                    txt.append("URL: ").append(article.getUrl()).append("\n");
+                    txt.append("\n");
                 }
+
+                texto.setText(txt.toString());
             }
 
             @Override
-            public void onFailure(Call<List<Post>> call, Throwable t) {
-                texto.setText("Problemas graves: " +t.getLocalizedMessage());
+            public void onFailure(Call<Response> call, Throwable t) {
+                texto.setText("Problemas graves: " + t.getLocalizedMessage());
             }
         });
     }

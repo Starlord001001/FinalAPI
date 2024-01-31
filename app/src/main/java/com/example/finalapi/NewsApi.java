@@ -1,11 +1,10 @@
 package com.example.finalapi;
 
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.http.GET;
-public interface NewsApi {
+import retrofit2.http.Query;
 
-    @GET("posts")
-    Call<List<Post>> getPosts();
+public interface NewsApi {
+    @GET("top-headlines")
+    Call<Response> getTopHeadlines(@Query("apiKey") String apiKey);
 }
