@@ -2,13 +2,16 @@ package com.example.finalapi;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -30,17 +33,23 @@ public class MainActivity extends AppCompatActivity {
         NewsApi newsApi = retrofit.create(NewsApi.class);
 
         String apiKey = "43e06f4cb44f47a29383d7f97765b0bb"; //KEY
-        Call<com.example.finalapi.Response> newsCall = newsApi.getTopHeadlines(apiKey);
+        Call<NewsResponse> newsCall = newsApi.getTopHeadlines("es", apiKey);
 
-        newsCall.enqueue(new Callback<Response>() {
+        Log.d("API Call", "Antes de la llamada a la API");
+
+        newsCall.enqueue(new Callback<NewsResponse>() {
             @Override
-            public void onResponse(Call<Response> call, Response<Response> response) {
+            public void onResponse(Call<NewsResponse> call, Response<NewsResponse> response) {
                 if (!response.isSuccessful()) {
-                    texto.setText("Problemas, código HTTP: " + response.code());
+                    Log.e("API Error", "Código HTTP: " + response.code());
                     return;
                 }
 
-                Response newsResponse = response.body();
+                NewsResponse newsResponse = response.body();
+                if (newsResponse != null) {
+                    Log.d("API Response", "Número de artículos: " + newsResponse.getTotalResults());
+                }
+
                 List<Article> articles = newsResponse.getArticles();
 
                 StringBuilder txt = new StringBuilder();
@@ -57,9 +66,14 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Response> call, Throwable t) {
+            public void onFailure(Call<NewsResponse> call, Throwable t) {
+                Log.e("API Failure", "Error: " + t.getLocalizedMessage());
                 texto.setText("Problemas graves: " + t.getLocalizedMessage());
             }
         });
+
+        Log.d("API Call", "Después de la llamada a la API");
+
     }
+
 }

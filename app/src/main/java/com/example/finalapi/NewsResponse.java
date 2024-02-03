@@ -2,13 +2,13 @@ package com.example.finalapi;
 
 import java.util.ArrayList;
 
-public class Response {
+public class NewsResponse {
 
     private String status;
     private int totalResults;
     private ArrayList<Article> articles;
 
-    public Response() {
+    public NewsResponse() {
         this.articles = new ArrayList<>();
     }
 
@@ -31,6 +31,10 @@ public class Response {
     public ArrayList<Article> getArticles() {
         return articles;
     }
+
+    /*public List<Article> getArticles() {
+        return articles;
+    }*/
 
     public void setArticles(ArrayList<Article> articles) {
         this.articles = articles;
