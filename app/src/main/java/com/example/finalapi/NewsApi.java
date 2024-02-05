@@ -11,7 +11,6 @@ public interface NewsApi {
             @Query("apiKey") String apiKey,
             @Query("language") String language,
             @Query("sortBy") String sortBy,
-            @Query("from") String fromDate,
-            @Query("q") String query
+            @Query("q") String q
     );
 }
