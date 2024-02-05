@@ -74,6 +74,13 @@
                 android:textStyle="bold"
                 tools:text="Content: This is the detailed content of the news article."/>
 
+            <Button
+                android:id="@+id/btnGuardarNoticia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Guardar Noticia"
+                android:layout_marginTop="16dp"/>
+
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

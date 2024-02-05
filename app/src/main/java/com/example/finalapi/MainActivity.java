@@ -43,6 +43,10 @@ public class MainActivity extends AppCompatActivity {
         String language = idiomaedt.getText().toString();
         String sortBy = ordenaredt.getText().toString();
 
+        if (q.isEmpty()) q = "Videojuego";
+        if (pageSize.isEmpty()) pageSize = "10";
+        if (language.isEmpty()) language = "es";
+        if (sortBy.isEmpty()) sortBy = "recommended";
 
         Intent intent = new Intent(MainActivity.this, NoticiasActivity.class);
         intent.putExtra("q", q);
@@ -52,4 +56,5 @@ public class MainActivity extends AppCompatActivity {
 
         startActivity(intent);
     }
+
 }

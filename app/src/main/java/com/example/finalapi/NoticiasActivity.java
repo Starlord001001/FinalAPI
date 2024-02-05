@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -38,6 +39,7 @@ public class NoticiasActivity extends AppCompatActivity {
         recyclerView.setAdapter(noticiasAdapter);
 
         Bundle extras = getIntent().getExtras();
+
         if (extras != null) {
             String q = extras.getString("q");
             Integer pageSize = Integer.parseInt(extras.getString("pageSize"));
