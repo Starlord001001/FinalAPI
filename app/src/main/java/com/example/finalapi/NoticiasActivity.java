@@ -28,16 +28,17 @@ public class NoticiasActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
+            String q = extras.getString("q");
+            Integer pageSize = Integer.parseInt(extras.getString("pageSize"));
             String language = extras.getString("language");
             String sortBy = extras.getString("sortBy");
-            String q = extras.getString("q");
 
             // Realiza la solicitud a la API y muestra las noticias aquí
-            fetchNews(language, sortBy, q);
+            fetchNews(q, pageSize, language, sortBy);
         }
     }
 
-    private void fetchNews(String language, String sortBy, String q) {
+    private void fetchNews(String q, Integer pageSize, String language, String sortBy) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://newsapi.org/v2/")  // URL
                 .addConverterFactory(GsonConverterFactory.create())
@@ -48,7 +49,7 @@ public class NoticiasActivity extends AppCompatActivity {
         String apiKey = "43e06f4cb44f47a29383d7f97765b0bb"; // KEY
 
 
-        Call<NewsResponse> newsCall = newsApi.getEverything(apiKey, language, sortBy, q);
+        Call<NewsResponse> newsCall = newsApi.getEverything(apiKey, q, pageSize,language, sortBy);
 
         newsCall.enqueue(new Callback<NewsResponse>() {
 

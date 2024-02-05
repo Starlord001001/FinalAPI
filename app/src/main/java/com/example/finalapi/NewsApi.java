@@ -9,8 +9,10 @@ public interface NewsApi {
     @GET("everything")
     Call<NewsResponse> getEverything(
             @Query("apiKey") String apiKey,
+            @Query("q") String q,
+            @Query("pageSize") Integer pageSize,
             @Query("language") String language,
-            @Query("sortBy") String sortBy,
-            @Query("q") String q
+            @Query("sortBy") String sortBy
+
     );
 }
