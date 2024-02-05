@@ -1,9 +1,14 @@
 package com.example.finalapi;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -18,13 +23,19 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NoticiasActivity extends AppCompatActivity {
 
-    private TextView texto;
+    private RecyclerView recyclerView;
+    private NoticiasAdapter noticiasAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_noticias);
-        texto = findViewById(R.id.tv_result);
+
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        noticiasAdapter = new NoticiasAdapter();
+        recyclerView.setAdapter(noticiasAdapter);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -77,15 +88,12 @@ public class NoticiasActivity extends AppCompatActivity {
 
                     StringBuilder txt = new StringBuilder();
                     for (Article article : articles) {
-                        txt.append("Source: ").append(article.getSource().getName()).append("\n");
-                        txt.append("Author: ").append(article.getAuthor()).append("\n");
                         txt.append("Title: ").append(article.getTitle()).append("\n");
-                        txt.append("Description: ").append(article.getDescription()).append("\n");
-                        txt.append("URL: ").append(article.getUrl()).append("\n");
+                        txt.append("URL To Image: ").append(article.getUrlToImage()).append("\n");
                         txt.append("\n");
                     }
 
-                    texto.setText(txt.toString());
+                    noticiasAdapter.setNoticias(articles);
                 } else {
                     Log.e("NoticiasActivity", "Respuesta de noticias vacía o nula.");
                 }
