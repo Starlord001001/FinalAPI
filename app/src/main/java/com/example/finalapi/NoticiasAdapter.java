@@ -1,5 +1,7 @@
 package com.example.finalapi;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,12 @@ import java.util.List;
 public class NoticiasAdapter extends RecyclerView.Adapter<NoticiasAdapter.NoticiasViewHolder> {
 
     private List<Article> noticias;
+    private Context context;
+
+    // Pass the context to the constructor
+    public NoticiasAdapter(Context context) {
+        this.context = context;
+    }
 
     public void setNoticias(List<Article> noticias) {
         this.noticias = noticias;
@@ -37,6 +45,23 @@ public class NoticiasAdapter extends RecyclerView.Adapter<NoticiasAdapter.Notici
         // Configurar la vista del elemento de la lista
         holder.tvTituloNoticia.setText(noticia.getTitle());
         Picasso.get().load(noticia.getUrlToImage()).into(holder.imagenNoticia);
+
+        // Handle click event
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Use the initialized context
+                Intent intent = new Intent(context, NoticiaDetallesActivity.class);
+                intent.putExtra("autor", noticia.getAuthor());
+                intent.putExtra("titulo", noticia.getTitle());
+                intent.putExtra("descripcion", noticia.getDescription());
+                intent.putExtra("url", noticia.getUrl());
+                intent.putExtra("imagen_url", noticia.getUrlToImage());
+                intent.putExtra("publicadoEn", noticia.getPublishedAt());
+                intent.putExtra("contenido", noticia.getContent());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -55,3 +80,4 @@ public class NoticiasAdapter extends RecyclerView.Adapter<NoticiasAdapter.Notici
         }
     }
 }
+

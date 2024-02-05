@@ -34,7 +34,7 @@ public class NoticiasActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        noticiasAdapter = new NoticiasAdapter();
+        noticiasAdapter = new NoticiasAdapter(this);
         recyclerView.setAdapter(noticiasAdapter);
 
         Bundle extras = getIntent().getExtras();
