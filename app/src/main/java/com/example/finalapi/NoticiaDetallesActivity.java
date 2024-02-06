@@ -9,6 +9,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
 public class NoticiaDetallesActivity extends AppCompatActivity {
@@ -22,6 +24,10 @@ public class NoticiaDetallesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_noticia_detalles);
+
+        FloatingActionButton fabBack = findViewById(R.id.fab_back2);
+        fabBack.setImageResource(R.drawable.volver);
+        fabBack.setOnClickListener(view -> onBackPressed());
 
         imagenNoticiaDetalle = findViewById(R.id.imagenNoticiaDetalle);
         tvAutor = findViewById(R.id.tvAutor);
