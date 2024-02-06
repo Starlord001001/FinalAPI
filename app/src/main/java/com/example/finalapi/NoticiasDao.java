@@ -24,7 +24,7 @@ public class NoticiasDao {
         values.put(NoticiasContract.NoticiaEntry.COLUMN_NAME_CONTENIDO, contenido);
 
         long newRowId = db.insert(NoticiasContract.NoticiaEntry.TABLE_NAME, null, values);
-        db.close();
+        //db.close();
         return newRowId != -1;
     }
 }

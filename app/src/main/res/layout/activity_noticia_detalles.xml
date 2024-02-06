@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:text="Autor: "
                 android:textStyle="bold"
-                tools:text="Author: John Doe" />
+                tools:text="Autor del articulo" />
 
             <TextView
                 android:id="@+id/tvTitulo"
@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:text="Titulo: "
                 android:textStyle="bold"
-                tools:text="Title: Breaking News" />
+                tools:text="Titulo del articulo" />
 
             <TextView
                 android:id="@+id/tvDescripcion"
@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:text="Descripción: "
                 android:textStyle="bold"
-                tools:text="Description: This is a breaking news article." />
+                tools:text="Descripcion breve del articulo." />
 
             <TextView
                 android:id="@+id/tvURL"
@@ -66,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:text="URL: "
                 android:textStyle="bold"
-                tools:text="URL: https://example.com" />
+                tools:text="URL: https://ejemplo.com" />
 
             <TextView
                 android:id="@+id/tvPublicadoEn"
@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:text="Fecha de publicación: "
                 android:textStyle="bold"
-                tools:text="Published on: February 5, 2024" />
+                tools:text="Fecha de publicación" />
 
             <TextView
                 android:id="@+id/tvContenido"
@@ -82,7 +82,9 @@
                 android:layout_height="wrap_content"
                 android:text="Contenido: "
                 android:textStyle="bold"
-                tools:text="Content: This is the detailed content of the news article." />
+                android:ellipsize="none"
+                android:maxLines="100"
+                tools:text="Contenido completo de la noticia." />
 
             <Button
                 android:id="@+id/btnGuardarNoticia"

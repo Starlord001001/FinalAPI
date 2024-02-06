@@ -1,5 +1,6 @@
 package com.example.finalapi;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -7,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.IOException;
@@ -49,6 +51,13 @@ public class NoticiasActivity extends AppCompatActivity {
             // Realiza la solicitud a la API y muestra las noticias aquí
             fetchNews(q, pageSize, language, sortBy);
         }
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.Guardarbtn);
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            mostrarNoticiasGuardadas();
+            return true;
+        });
+
     }
 
     private void fetchNews(String q, Integer pageSize, String language, String sortBy) {
@@ -110,4 +119,10 @@ public class NoticiasActivity extends AppCompatActivity {
 
         });
     }
+
+    private void mostrarNoticiasGuardadas() {
+        Intent intent = new Intent(this, NoticiasGuardadas.class);
+        startActivity(intent);
+    }
+
 }
