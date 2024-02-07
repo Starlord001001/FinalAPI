@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,13 +18,25 @@ import java.util.List;
 
 
 public class NoticiasAdapter extends RecyclerView.Adapter<NoticiasAdapter.NoticiasViewHolder> {
-
     private List<Article> noticias;
     private Context context;
+    private OnItemClickListener listener;
 
-    // Pass the context to the constructor
+    // Interfaz para clicks en los ítems
+    public interface OnItemClickListener {
+        void onItemClick(Article article);
+    }
+
+    // Constructor que solo toma Context (para uso como antes)
     public NoticiasAdapter(Context context) {
         this.context = context;
+    }
+
+    // Constructor sobrecargado que acepta Context, List<Article>, y OnItemClickListener
+    public NoticiasAdapter(Context context, List<Article> noticias, OnItemClickListener listener) {
+        this.context = context;
+        this.noticias = noticias;
+        this.listener = listener;
     }
 
     public void setNoticias(List<Article> noticias) {
