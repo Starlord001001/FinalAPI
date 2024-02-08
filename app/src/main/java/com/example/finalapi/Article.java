@@ -1,7 +1,15 @@
 package com.example.finalapi;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class Article {
-    private Source source;
+
+
+    @PrimaryKey(autoGenerate = true)
+    private int articleId;
+    private int sourceId;
     private String author;
     private String title;
     private String description;
@@ -12,12 +20,6 @@ public class Article {
 
     public Article() {
     }
-
-    public Source getSource() {
-        return source;
-    }
-
-
     public String getAuthor() {
         return author;
     }
@@ -52,35 +54,24 @@ public class Article {
         return content;
     }
 
-    public void setSource(Source source) {
-        this.source = source;
-    }
+    public int getArticleId() {return articleId;}
 
-    public void setAuthor(String author) {
-        this.author = author;
-    }
+    public int getSourceId() {return sourceId;}
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+    public void setSourceId(int sourceId) {this.sourceId = sourceId;}
+    public void setArticleId(int articleId) {this.articleId = articleId;}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    public void setAuthor(String author) {this.author = author;}
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
+    public void setTitle(String title) {this.title = title;}
 
-    public void setUrlToImage(String urlToImage) {
-        this.urlToImage = urlToImage;
-    }
+    public void setDescription(String description) {this.description = description;}
 
-    public void setPublishedAt(String publishedAt) {
-        this.publishedAt = publishedAt;
-    }
+    public void setUrl(String url) {this.url = url;}
 
-    public void setContent(String content) {
-        this.content = content;
-    }
+    public void setUrlToImage(String urlToImage) {this.urlToImage = urlToImage;}
+
+    public void setPublishedAt(String publishedAt) {this.publishedAt = publishedAt;}
+
+    public void setContent(String content) {this.content = content;}
 }
